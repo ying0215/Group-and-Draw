@@ -1,9 +1,9 @@
-import { Participant, GroupResult } from './types';
+import { Participant } from './types';
 
 export const parseNames = (input: string): Participant[] => {
   // Split by new lines or commas
   const names = input.split(/[\n,]+/).map(n => n.trim()).filter(n => n.length > 0);
-  
+
   // Return all names including duplicates so the UI can detect them
   return names.map(name => ({
     id: crypto.randomUUID(),

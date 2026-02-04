@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { Upload, FileText, UserPlus, Trash2, AlertCircle, Copy, Sparkles, Filter } from 'lucide-react';
+import { FileText, UserPlus, Trash2, AlertCircle, Sparkles, Filter } from 'lucide-react';
 import { Participant } from '../types';
 import { parseNames } from '../utils';
 
@@ -44,7 +44,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ participants, setPar
   const handleRemoveDuplicates = () => {
     const seen = new Set<string>();
     const uniqueList: Participant[] = [];
-    
+
     participants.forEach(p => {
       if (!seen.has(p.name)) {
         seen.add(p.name);
@@ -93,13 +93,13 @@ export const InputSection: React.FC<InputSectionProps> = ({ participants, setPar
           <UserPlus className="w-6 h-6 text-indigo-600" />
           輸入名單來源
         </h2>
-        
+
         <div className="grid md:grid-cols-2 gap-6">
           {/* Manual Input */}
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <label className="block text-sm font-medium text-slate-600">直接貼上姓名</label>
-              <button 
+              <button
                 onClick={handleFillTestValues}
                 className="text-xs flex items-center gap-1 text-indigo-600 hover:text-indigo-800 font-medium px-2 py-1 rounded bg-indigo-50 hover:bg-indigo-100 transition-colors"
               >
@@ -125,7 +125,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ participants, setPar
           {/* CSV Upload */}
           <div className="space-y-3">
             <label className="block text-sm font-medium text-slate-600">或是上傳 CSV 檔案</label>
-            <div 
+            <div
               onClick={() => fileInputRef.current?.click()}
               className="w-full h-40 border-2 border-dashed border-slate-300 bg-white rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all group"
             >
@@ -186,13 +186,12 @@ export const InputSection: React.FC<InputSectionProps> = ({ participants, setPar
             {participants.map((p) => {
               const isDuplicate = nameCounts[p.name] > 1;
               return (
-                <div 
-                  key={p.id} 
-                  className={`px-3 py-2 rounded-lg text-center text-sm truncate border transition-colors ${
-                    isDuplicate 
-                      ? 'bg-red-50 text-red-700 border-red-200 font-medium' 
+                <div
+                  key={p.id}
+                  className={`px-3 py-2 rounded-lg text-center text-sm truncate border transition-colors ${isDuplicate
+                      ? 'bg-red-50 text-red-700 border-red-200 font-medium'
                       : 'bg-slate-100 text-slate-900 border-slate-200'
-                  }`}
+                    }`}
                   title={isDuplicate ? '此為重複姓名' : p.name}
                 >
                   {p.name}
@@ -206,12 +205,12 @@ export const InputSection: React.FC<InputSectionProps> = ({ participants, setPar
 
       {participants.length > 0 && (
         <div className="flex justify-center pt-4">
-           <button
+          <button
             onClick={onNext}
             className="bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-bold py-3 px-12 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
-           >
-             開始使用功能
-           </button>
+          >
+            開始使用功能
+          </button>
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Gift, Play, RotateCcw, Download, Settings, Trash, Check } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Gift, Play, RotateCcw, Download, Settings } from 'lucide-react';
 import { Participant } from '../types';
 import { exportToCSV } from '../utils';
 
@@ -13,10 +13,10 @@ export const LuckyDrawSection: React.FC<LuckyDrawSectionProps> = ({ participants
   const [isDrawing, setIsDrawing] = useState(false);
   const [allowRepeats, setAllowRepeats] = useState(false);
   const [candidateList, setCandidateList] = useState<Participant[]>([]);
-  
+
   // Animation refs
   const intervalRef = useRef<number | null>(null);
-  
+
   // Initialize candidates
   useEffect(() => {
     setCandidateList(participants);
@@ -40,30 +40,28 @@ export const LuckyDrawSection: React.FC<LuckyDrawSectionProps> = ({ participants
     }
 
     setIsDrawing(true);
-    let counter = 0;
-    
+
     // Fast cycling animation
     if (intervalRef.current) clearInterval(intervalRef.current);
-    
+
     intervalRef.current = window.setInterval(() => {
       const randomIndex = Math.floor(Math.random() * candidateList.length);
       setCurrentDisplay(candidateList[randomIndex].name);
-      counter++;
     }, 50);
 
     // Stop after random time (2-3 seconds)
     const duration = 2000 + Math.random() * 1000;
-    
+
     setTimeout(() => {
       if (intervalRef.current) clearInterval(intervalRef.current);
-      
+
       // Select final winner
       const finalIndex = Math.floor(Math.random() * candidateList.length);
       const winner = candidateList[finalIndex];
       setCurrentDisplay(winner.name);
       setWinners(prev => [winner, ...prev]);
       setIsDrawing(false);
-      
+
       // Trigger simple confetti effect (CSS based or simple visual cue)
       // Since we don't have the library installed, we rely on UI state
     }, duration);
@@ -87,7 +85,7 @@ export const LuckyDrawSection: React.FC<LuckyDrawSectionProps> = ({ participants
       <div className="grid md:grid-cols-3 gap-6">
         {/* Left Column: Controls & History */}
         <div className="md:col-span-1 space-y-6">
-           {/* Settings */}
+          {/* Settings */}
           <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
             <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4">
               <Settings className="w-5 h-5 text-indigo-600" />
@@ -131,8 +129,8 @@ export const LuckyDrawSection: React.FC<LuckyDrawSectionProps> = ({ participants
                 </div>
               ))}
             </div>
-             {winners.length > 0 && (
-              <button 
+            {winners.length > 0 && (
+              <button
                 onClick={resetDraw}
                 className="mt-4 w-full py-2 text-red-500 hover:bg-red-50 rounded-lg text-sm transition-colors flex justify-center items-center gap-1"
               >
@@ -147,7 +145,7 @@ export const LuckyDrawSection: React.FC<LuckyDrawSectionProps> = ({ participants
           <div className="flex-1 bg-white rounded-2xl shadow-lg border border-slate-200 p-8 flex flex-col items-center justify-center relative overflow-hidden min-h-[400px]">
             {/* Background decoration */}
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-            
+
             <div className="text-center w-full z-10">
               <h2 className="text-slate-400 font-medium mb-6 tracking-widest uppercase">Lucky Winner</h2>
               <div className={`text-5xl md:text-7xl font-black text-slate-800 break-words transition-all duration-100 ${isDrawing ? 'scale-110 opacity-80 blur-[1px]' : 'scale-100'}`}>
@@ -171,13 +169,13 @@ export const LuckyDrawSection: React.FC<LuckyDrawSectionProps> = ({ participants
                 )}
               </button>
             </div>
-            
+
             {/* Visual Flair */}
-             {!isDrawing && winners.length > 0 && winners[0].name === currentDisplay && (
-               <div className="absolute inset-0 pointer-events-none flex justify-center items-center opacity-10">
-                  <Gift className="w-64 h-64" />
-               </div>
-             )}
+            {!isDrawing && winners.length > 0 && winners[0].name === currentDisplay && (
+              <div className="absolute inset-0 pointer-events-none flex justify-center items-center opacity-10">
+                <Gift className="w-64 h-64" />
+              </div>
+            )}
           </div>
         </div>
       </div>

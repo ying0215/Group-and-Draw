@@ -3,7 +3,7 @@ import { InputSection } from './components/InputSection';
 import { LuckyDrawSection } from './components/LuckyDrawSection';
 import { GroupingSection } from './components/GroupingSection';
 import { Participant, TabView } from './types';
-import { Gift, Users, Edit3, Github } from 'lucide-react';
+import { Gift, Users, Edit3 } from 'lucide-react';
 
 const App: React.FC = () => {
   const [participants, setParticipants] = useState<Participant[]>([]);
@@ -13,9 +13,9 @@ const App: React.FC = () => {
     switch (activeTab) {
       case 'input':
         return (
-          <InputSection 
-            participants={participants} 
-            setParticipants={setParticipants} 
+          <InputSection
+            participants={participants}
+            setParticipants={setParticipants}
             onNext={() => setActiveTab('draw')}
           />
         );
@@ -45,11 +45,10 @@ const App: React.FC = () => {
             <nav className="flex space-x-1 sm:space-x-4">
               <button
                 onClick={() => setActiveTab('input')}
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeTab === 'input' 
-                    ? 'bg-indigo-50 text-indigo-700' 
+                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'input'
+                    ? 'bg-indigo-50 text-indigo-700'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
-                }`}
+                  }`}
               >
                 <Edit3 className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">名單輸入</span>
@@ -57,11 +56,10 @@ const App: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('draw')}
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeTab === 'draw' 
-                    ? 'bg-indigo-50 text-indigo-700' 
+                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'draw'
+                    ? 'bg-indigo-50 text-indigo-700'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
-                }`}
+                  }`}
               >
                 <Gift className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">獎品抽籤</span>
@@ -69,11 +67,10 @@ const App: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('group')}
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeTab === 'group' 
-                    ? 'bg-indigo-50 text-indigo-700' 
+                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'group'
+                    ? 'bg-indigo-50 text-indigo-700'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
-                }`}
+                  }`}
               >
                 <Users className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">自動分組</span>
@@ -88,14 +85,14 @@ const App: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {renderContent()}
       </main>
-      
+
       {/* Footer */}
       <footer className="border-t border-slate-200 mt-auto bg-white">
         <div className="max-w-7xl mx-auto py-6 px-4 flex justify-between items-center text-slate-400 text-sm">
-           <p>© {new Date().getFullYear()} LuckyGroup Tool. All rights reserved.</p>
-           <div className="flex items-center gap-1">
-             Build with <span className="text-red-400">❤</span> using React
-           </div>
+          <p>© {new Date().getFullYear()} LuckyGroup Tool. All rights reserved.</p>
+          <div className="flex items-center gap-1">
+            Build with <span className="text-red-400">❤</span> using React
+          </div>
         </div>
       </footer>
     </div>
